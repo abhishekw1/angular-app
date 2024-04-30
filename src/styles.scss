@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.active {
+  font-weight: 500 !important;
+}
+.nav-link {
+  color: black !important;
+}
+
+.nav-link:hover {
+  color: blue !important;
+}
+
+.spinner-border {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  z-index: 1;
+}

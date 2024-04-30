@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row justify-content-end gap-3">
+    <div class="col-12 col-md-3 col-lg-3 p-0">
+      <button
+        type="button"
+        class="btn btn-primary float-end"
+        (click)="generatePdf()"
+      >
+        PDF Generation <i class="bi bi-file-earmark-pdf"></i>
+      </button>
+    </div>
+    @if (isPdfGenerated) {
+    <div class="col-12 col-md-3 col-lg-3 p-0">
+      <button
+        type="button"
+        class="btn btn-success float-end"
+        (click)="downloadPdf()"
+      >
+        Download PDF <i class="bi bi-file-earmark-arrow-down-fill"></i>
+      </button>
+    </div>
+    <div class="col-12 col-md-3 col-lg-3 p-0">
+      <a class="btn btn-secondary float-end" routerLink="/pdf"
+        >View PDF <i class="bi bi-file-earmark-arrow-down-fill"></i
+      ></a>
+    </div>
+    }
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <!-- <th scope="col">Sr. No.</th> -->
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Address</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (loading$ | async) {
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      } @if (userList$|async;as userList){ @for (user of userList; track $index)
+      {
+      <tr>
+        <!-- <td>{{ user.id }}</td> -->
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.address }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="onEdit(user)"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="onDelete(user.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      } } @else {
+      <tr>
+        <td>No User Added</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

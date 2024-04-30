@@ -1,0 +1,94 @@
+@if (loading$|async) {
+<div class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+}
+<div class="card">
+  <div class="card-header fw-medium">
+    {{ isEdit ? "Update User" : "Add User" }}
+  </div>
+  <div class="card-body">
+    <form
+      [formGroup]="userForm"
+      (ngSubmit)="addandUpdateUser()"
+      class="needs-validation"
+    >
+      <div class="mb-3">
+        <label for="name" class="form-label"> Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="validationCustom01"
+          placeholder="First Name"
+          name="name"
+          formControlName="name"
+          [class.is-invalid]="name.invalid && name.touched"
+        />
+        <div class="invalid-feedback" *ngIf="name.invalid && name.touched">
+          Please enter name
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          placeholder="phone"
+          name="phone"
+          formControlName="phone"
+          [class.is-invalid]="phone.invalid && phone.touched"
+        />
+
+        <div
+          class="invalid-feedback"
+          *ngIf="phone.errors?.['pattern'] && phone.touched"
+        >
+          Please enter 10 digit no
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="Email"
+          name="email"
+          formControlName="email"
+          [class.is-invalid]="email.invalid && email.touched"
+        />
+        <div class="invalid-feedback" *ngIf="email.invalid && email.touched">
+          <ng-container *ngIf="email.errors?.['required'];else pattern">
+            Please enter Email
+          </ng-container>
+          <ng-template #pattern> Please enter Valid Email </ng-template>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea
+          class="form-control"
+          id="address"
+          rows="3"
+          placeholder="enter Address"
+          name="address"
+          formControlName="address"
+          [class.is-invalid]="address.invalid && address.touched"
+        ></textarea>
+        <div
+          class="invalid-feedback"
+          *ngIf="address.invalid && address.touched"
+        >
+          Please enter Address
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        {{ isEdit ? "Update User" : "Add User" }}
+      </button>
+      <button type="button" class="btn btn-primary ms-3" (click)="onClear()">
+        Clear
+      </button>
+    </form>
+  </div>
+</div>
